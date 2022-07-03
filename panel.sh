@@ -75,6 +75,7 @@ hc pad $monitor $panel_height
         # generated if the output changed compared to the previous run.
         date +$'date\t^fg(#efefef)%H:%M ^fg(#909090)%a %d.%m.'
         acpi 
+        amixer -c 0 get Master
         sleep 1 || break
     done > >(uniq_linebuffered) &
     childpid=$!

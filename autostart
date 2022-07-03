@@ -25,9 +25,9 @@ hc keybind $Mod-Shift-q close # default: $Mod-Shift-c
 # spawing applications
 hc keybind $Mod-Return spawn "${TERMINAL:-terminator}" # use your $TERMINAL with xterm as fallback
 hc keybind $Mod-p spawn "firefox"
-hc keybind $Mod-Shift-p spawn "chromium"
+hc keybind $Mod-Shift-p spawn "google-chrome"
 hc keybind $Mod-d spawn rofi -show run
-hc keybind $Mod-e spawn nemo
+hc keybind $Mod-e spawn caja --no-desktop /home/peter
 
 # extra keyboard buttons
 # Use pactl to adjust volume in PulseAudio.
@@ -36,8 +36,8 @@ hc keybind XF86AudioLowerVolume spawn pactl set-sink-volume @DEFAULT_SINK@ -2%
 hc keybind XF86AudioMute spawn pactl set-sink-mute @DEFAULT_SINK@ toggle
 hc keybind XF86AudioMicMute spawn pactl set-source-mute @DEFAULT_SOURCE@ toggle
 # Adjust brightness 
-hc keybind XF86MonBrightnessUp spawn xbacklight -inc 20 # increase screen brightness
-hc keybind XF86MonBrightnessDown spawn xbacklight -dec 20 # increase screen brightness
+hc keybind XF86MonBrightnessUp spawn brightnessctl set 5%+ # increase screen brightness
+hc keybind XF86MonBrightnessDown spawn brightnessctl set 5%- # increase screen brightness
 
 # basic movement in tiling and floating mode
 # focusing clients
@@ -134,10 +134,10 @@ hc keybind $Mod-i jumpto urgent
 # theme
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
-hc set frame_border_active_color '#222222'
+hc set frame_border_active_color '#4f8bf7'
 hc set frame_border_normal_color '#101010'
 hc set frame_bg_normal_color '#565656'
-hc set frame_bg_active_color '#345F0C'
+hc set frame_bg_active_color '#17469e'
 hc set frame_border_width 1
 hc set always_show_frame on
 hc set frame_bg_transparent on
@@ -145,10 +145,10 @@ hc set frame_transparent_width 5
 hc set frame_gap 4
 
 hc attr theme.title_height 0
-hc attr theme.title_font 'Ubuntu Mono:pixelsize=12'  # example using Xft
+hc attr theme.title_font 'IBM Plex Serif:pixelsize=12'  # example using Xft
 # hc attr theme.title_font '-*-fixed-medium-r-*-*-13-*-*-*-*-*-*-*'
 hc attr theme.padding_top 0  # space below the title's baseline (i.e. text depth)
-hc attr theme.active.color '#9fbc00'
+hc attr theme.active.color '#4f8bf7'
 hc attr theme.normal.color '#454545'
 hc attr theme.urgent.color orange
 hc attr theme.inner_width 1
@@ -157,8 +157,8 @@ hc attr theme.border_width 3
 hc attr theme.floating.border_width 4
 hc attr theme.floating.outer_width 1
 hc attr theme.floating.outer_color black
-hc attr theme.active.inner_color '#3E4A00'
-hc attr theme.active.outer_color '#3E4A00'
+hc attr theme.active.inner_color '#17469e'
+hc attr theme.active.outer_color '#17469e'
 hc attr theme.background_color black # default: #141414
 
 hc set window_gap 0
@@ -168,7 +168,7 @@ hc set smart_frame_surroundings on
 hc set mouse_recenter_gap 0
 
 # set walpaper
-feh --bg-scale /home/peter/Pictures/Wallpapers/take-back-the-internet-with-tor-project.png
+feh --bg-scale /home/peter/Pictures/Wallpapers/palmes.jpg
 
 
 # rules
@@ -200,3 +200,5 @@ for monitor in $(hc list_monitors | cut -d: -f1) ; do
     # start it on each monitor
     "$panel" "$monitor" &
 done
+
+picom --config ~/.config/picom.conf & xterm -hold -e neofetch & sleep .1s  && transset -a&
